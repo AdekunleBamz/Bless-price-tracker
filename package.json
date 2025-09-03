@@ -1,5 +1,5 @@
 {
-	"name": "bless-price-tracker",
+	"name": "bless-crypto-live-price-tracker",
 	"version": "1.0.0",
 	"description": "Javy typescript template for the Blockless CLI.",
 	"main": "index.js",
@@ -24,6 +24,6 @@
 		"mkdirp": "^3.0.1"
 	},
 	"bls": {
-		"functionId": "bless-function_bless-price-tracker-1.0.0"
+		"functionId": "bless-function_bless-crypto-live-price-tracker-1.0.0"
 	}
 }
