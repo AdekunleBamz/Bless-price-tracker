@@ -1,6 +1,7 @@
 name = "bless-price-tracker"
 version = "1.0.0"
 type = "text"
+production_host = "magenta-ocelot-thea-5wfwuhf4.bls.dev"
 
 [deployment]
 permission = "public"
@@ -15,3 +16,13 @@ command = "npm run build:debug"
 dir = "build"
 entry = "bless-price-tracker.wasm"
 command = "npm run build:release"
+
+[[deployments]]
+name = "blessnet"
+description = ""
+cid = "bafybeiap5uzyomqih7cgzwb2in45lgu2mpaommmc3s7dfcanod5wfwuhf4"
+created = "2025-09-03T17:58:40.345Z"
+
+  [deployments.runtime]
+  url = "blessnet.tar.gz"
+  checksum = "e312041cd3bad7604d523d0dbec53eadb2d03510e8ed91747f5a8a68e17d78f3"
