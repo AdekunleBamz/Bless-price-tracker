@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bless Price Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="/bless-logo.png" alt="Bless Network" class="bless-logo">
+                    <i class="fas fa-chart-line"></i>
+                    <h1>Bless Price Tracker</h1>
+                </div>
+                <div class="header-actions">
+                    <button class="refresh-btn" onclick="refreshPrices()">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Intro Section -->
+        <section class="intro-section">
+            <div class="intro-content">
+                <h2>Welcome to Bless Price Tracker</h2>
+                <p>Track real-time cryptocurrency prices, set price alerts, and manage your portfolio with ease. Built on the decentralized Bless Network for maximum reliability and performance.</p>
+                <div class="intro-features">
+                    <div class="feature" onclick="scrollToSection('price-section')">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Live Price Tracking</span>
+                    </div>
+                    <div class="feature" onclick="scrollToSection('alerts-section')">
+                        <i class="fas fa-bell"></i>
+                        <span>Price Alerts</span>
+                    </div>
+                    <div class="feature" onclick="scrollToSection('portfolio-section')">
+                        <i class="fas fa-wallet"></i>
+                        <span>Portfolio Management</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Price Display Section -->
+            <section class="price-section" id="price-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-coins"></i> Live Crypto Prices</h2>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="Search cryptocurrencies..." class="search-input">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                </div>
+                <div class="price-grid" id="priceGrid">
+                    <!-- Price cards will be populated here -->
+                </div>
+            </section>
+
+            <!-- Price Alerts Section -->
+            <section class="alerts-section" id="alerts-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-bell"></i> Price Alerts</h2>
+                    <button class="add-btn" onclick="showAddAlertModal()">
+                        <i class="fas fa-plus"></i>
+                        Add Alert
+                    </button>
+                </div>
+                <div class="alerts-list" id="alertsList">
+                    <!-- Alerts will be populated here -->
+                </div>
+            </section>
+
+            <!-- Portfolio Section -->
+            <section class="portfolio-section" id="portfolio-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-wallet"></i> Portfolio</h2>
+                    <button class="add-btn" onclick="showAddPortfolioModal()">
+                        <i class="fas fa-plus"></i>
+                        Add Asset
+                    </button>
+                </div>
+                <div class="portfolio-summary">
+                    <div class="portfolio-card">
+                        <h3>Total Value</h3>
+                        <p class="total-value" id="totalValue">$0.00</p>
+                    </div>
+                    <div class="portfolio-card">
+                        <h3>24h Change</h3>
+                        <p class="total-change" id="totalChange">+0.00%</p>
+                    </div>
+                </div>
+                <div class="portfolio-list" id="portfolioList">
+                    <!-- Portfolio items will be populated here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Built with ❤️ by <a href="https://github.com/bamzzstudio" target="_blank" rel="noopener">BamzzStudio</a> on <a href="https://bless.network" target="_blank" rel="noopener">Bless Network</a></p>
+        </div>
+    </footer>
+
+    <!-- Add Alert Modal -->
+    <div id="addAlertModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Price Alert</h3>
+                <span class="close" onclick="closeModal('addAlertModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="alertCoin">Cryptocurrency</label>
+                    <select id="alertCoin" class="form-input">
+                        <option value="">Select a coin...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="alertPrice">Target Price ($)</label>
+                    <input type="number" id="alertPrice" class="form-input" placeholder="Enter target price" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="alertType">Alert Type</label>
+                    <select id="alertType" class="form-input">
+                        <option value="above">Above</option>
+                        <option value="below">Below</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('addAlertModal')">Cancel</button>
+                <button class="btn-primary" onclick="addAlert()">Add Alert</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Portfolio Modal -->
+    <div id="addPortfolioModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Portfolio Asset</h3>
+                <span class="close" onclick="closeModal('addPortfolioModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="portfolioCoin">Cryptocurrency</label>
+                    <select id="portfolioCoin" class="form-input">
+                        <option value="">Select a coin...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="portfolioAmount">Amount</label>
+                    <input type="number" id="portfolioAmount" class="form-input" placeholder="Enter amount" step="0.000001">
+                </div>
+                <div class="form-group">
+                    <label for="portfolioPrice">Purchase Price ($)</label>
+                    <input type="number" id="portfolioPrice" class="form-input" placeholder="Enter purchase price" step="0.01">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('addPortfolioModal')">Cancel</button>
+                <button class="btn-primary" onclick="addPortfolioAsset()">Add Asset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+name = "bless-price-tracker"
+version = "1.0.0"
+type = "text"
+
+[deployment]
+permission = "public"
+nodes = 1
+
+[build]
+dir = "build"
+entry = "bless-price-tracker_debug.wasm"
+command = "npm run build:debug"
+
+[build_release]
+dir = "build"
+entry = "bless-price-tracker.wasm"
+command = "npm run build:release"
